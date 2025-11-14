@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website resmi PESTA - Festival Lomba Seni dan Sastra Tingkat Sekolah. Temukan cabang lomba, teknis, dan cara pendaftaran.">
+    <title>PESTA - Festival Lomba Seni dan Sastra Tingkat Sekolah</title>
+    <!-- Google Fonts for trendy typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Particles.js for confetti effect -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        /* Global Styles */
+        html {
+            scroll-behavior: smooth; /* Smooth scroll for navigation */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #e6f2ff; /* Solid background color */
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            animation: fadeIn 0.8s ease-in-out; /* Smooth fade-in for body */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Header Styles */
+        header {
+            background: #003366; /* Solid navy blue */
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 0 0 20px 20px;
+            animation: slideDown 0.8s ease-in-out; /* Smooth slide-down for header */
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Navigation Styles */
+        nav {
+            margin-top: 1rem;
+        }
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease-in-out; /* Smooth hover */
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Section Styles */
+        section {
+            display: none;
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Solid white with opacity */
+            border-radius: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transition: all 0.5s ease-in-out; /* Smooth transition */
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: slideIn 0.5s ease-in-out; /* Smooth slide-in */
+        }
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Poster Container - Updated for horizontal layout and smaller images */
+        .poster-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeInUp 0.6s ease-in-out; /* Smooth fade-in */
+        }
+        .poster {
+            flex: 0 0 auto;
+            max-width: 400px; /* Limit width for small size */
+        }
+        .poster-image {
+            width: 100%;
+            height: 300px; /* Smaller height */
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out; /* Smooth hover */
+        }
+        .poster-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Logo Grid */
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+            margin-top: 2rem;
+        }
+        .logo-item {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: all 0.4s ease-in-out; /* Smooth hover */
+            opacity: 1;
+        }
+        .logo-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+            background-color: rgba(255, 255, 255, 0.9);
+            opacity: 0.9;
+        }
+        .logo-item img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #0066cc; /* Solid blue border */
+            transition: all 0.3s ease-in-out; /* Smooth border change */
+        }
+        .logo-item:hover img {
+            border-color: #004d99; /* Darker blue on hover */
+            transform: scale(1.1);
+        }
+
+        /* Music Player */
+        .music-player {
+            text-align: center;
+            margin: 2rem 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.6s ease-in-out; /* Smooth fade-in */
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Social Media and Like Button */
+        .social-links {
+            text-align: center;
+            margin: 2rem 0;
+            animation: fadeInUp 0.6s ease-in-out; /* Smooth fade-in */
+        }
+        .social-links a {
+            margin: 0 1rem;
+            color: #003366;
+            font-size: 2rem;
+            transition: all 0.3s ease-in-out; /* Smooth hover */
+        }
+        .social-links a:hover {
+            color: #0066cc;
+            transform: scale(1.1);
+        }
+        .like-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #0066cc; /* Solid blue */
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Smooth hover */
+        }
+        .like-button:hover {
+            background-color: #004d99;
+            transform: scale(1.05);
+        }
+        .like-button:active {
+            transform: scale(0.95); /* Smooth click feedback */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #003366; /* Solid navy blue */
+            color: white;
+            box-shadow: 0 -8px 16px rgba(0,0,0,0.5);
+            border-radius: 20px 20px 0 0;
+            animation: slideUp 0.8s ease-in-out; /* Smooth slide-up */
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Headings */
+        h2 {
+            color: #003366;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-align: center;
+            animation: fadeInUp 0.6s ease-in-out; /* Smooth fade-in */
+        }
+
+        /* Button Styles for Teknis and Pendaftaran */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Smooth hover */
+            margin: 0.5rem;
+        }
+        .btn:hover {
+            background-color: #004d99;
+            transform: scale(1.05);
+        }
+        .btn:active {
+            transform: scale(0.95); /* Smooth click feedback */
+        }
+        .button-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            animation: fadeInUp 0.6s ease-in-out; /* Smooth fade-in */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .poster-container {
+                flex-direction: column; /* Stack vertically on small screens */
+                align-items: center;
+            }
+            .poster {
+                max-width: 100%;
+            }
+            .poster-image {
+                height: 120px; /* Even smaller on mobile */
+            }
+            .logo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles for confetti effect -->
+    <div id="particles-js"></div>
+
+    <header>
+        <h1><i class="fas fa-music"></i> PENYELENGGARAAN KOMPETENSI INTERNAL SEKOLAH <i class="fas fa-music"></i></h1>
+        <nav>
+            <a onclick="showPage('home')" tabindex="0"><i class="fas fa-home"></i> Home</a>
+            <a onclick="showPage('cabang')" tabindex="0"><i class="fas fa-list"></i> Cabang Perlombaan</a>
+            <a onclick="showPage('teknis')" tabindex="0"><i class="fas fa-cogs"></i> Teknis Perlombaan</a>
+            <a onclick="showPage('pendaftaran')" tabindex="0"><i class="fas fa-user-plus"></i> Pendaftaran Seleksi</a>
+        </nav>
+    </header>r>
+
+
+
+    <!-- Section Home -->
+    <section id="home" class="active">
+        <h2>Selamat Datang di PESTA di SMAN 80 Jakarta</h2>
+        <p>"PESTA" Penyelenggaraan Kompetensi Internal Sekolah (Seni Musik, Seni Suara, Seni Sastra dan Sinematografi). Temukan informasi lengkap tentang cabang lomba, teknis, dan cara daftar sekarang!</p>
+   <div class="poster-container">
+    <div class="poster">
+        <img src="c:\Users\alvar\Downloads\1_20251112_140425_0000_page-0001.jpg" alt="Poster 1 (A4)" class="poster-image">
+    </div>
+    <div class="poster">
+        <img src="poster2.jpg" alt="Poster 2 (A4)" class="poster-image">
+    </div>
+    <div class="poster">
+        <img src="poster3.jpg" alt="Poster 3 (A4)" class="poster-image">
+    </div>
+    <div class="poster">
+        <img src="poster4.jpg" alt="Poster 4 (A4)" class="poster-image">
+    </div>
+</div>
+    </section>
+
+    <!-- Section Cabang Perlombaan -->
+    <!-- Section Cabang Perlombaan -->
+<section id="cabang">
+    <h2>Cabang Perlombaan PESTA</h2>
+    <p>Berikut adalah cabang lomba yang diperlombakan:</p>
+    <p>Klik logo untuk menghubungi pihak penanggung jawab lomba (Whatsapp)</p>
+    <div class="logo-grid">
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Baca Puisi" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\Logo Baca Puisi_20251112104955.png" alt="Logo Baca Puisi">
+            </a>
+            <p>Baca Puisi</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Cipta Lagu" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\CIPTA_20251112_073954_0000.png" alt="Logo Cipta Lagu">
+            </a>
+            <p>Cipta Lagu</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Cipta Puisi" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\Untitled design.png" alt="Logo Cipta Puisi">
+            </a>
+            <p>Cipta Puisi</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Desain Poster" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\Logo-Desain-Poster.png" alt="Logo Desain Poster">
+            </a>
+            <p>Desain Poster</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Fotografi" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\20251112_073200_0000.png" alt="Logo Fotografi">
+            </a>
+            <p>Fotografi</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Gitar Solo" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\WhatsApp Image 2025-11-12 at 8.37.23 AM.jpeg" alt="Logo Instrumen Solo Gitar">
+            </a>
+            <p>Gitar Solo</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Menyanyi Solo" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\pngtree-hand-draw-young-man-singer-icon-vector-png-image_6667321.png" alt="Logo Menyanyi Solo">
+            </a>
+            <p>Menyanyi Solo</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Jurnalistik" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\IMG-20251112-WA0016.png" alt="Logo Jurnalistik">
+            </a>
+            <p>Jurnalistik</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Kriya" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\Kriya_20251112_071941_0000.png" alt="Logo Kriya">
+            </a>
+            <p>Kriya</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Komik Digital" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\IMG-20251112-WA0005.jpg" alt="Logo Komik Digital">
+            </a>
+            <p>Komik Digital</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Menulis Cerpen" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\IMG_8169.PNG" alt="Logo Menulis Cerita Pendek">
+            </a>
+            <p>Menulis Cerpen</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Monolog" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\images (12).jpeg" alt="Logo Monolog">
+            </a>
+            <p>Monolog</p>
+        </div>
+        <div class="logo-item">
+            <a href="https://wa.me/628123456789?text=Halo, saya ingin bertanya tentang Film Pendek" target="_blank" rel="noopener">
+                <img src="c:\Users\alvar\Downloads\Logo film pendek .png" alt="Logo Film Pendek">
+            </a>
+            <p>Film Pendek</p>
+        </div>
+    </div>
+</section>
+  <!-- Section Teknis  -->
+   <!-- Section Teknis  -->
+<section id="teknis">
+    <h2>Tata Ketentuan</h2>
+    <p>Klik tombol di bawah untuk detail teknis masing-masing kategori (akan diarahkan ke link eksternal):</p>
+    <div class="button-grid">
+        <a href="https://docs.google.com/document/d/example-link-teknis-baca-puisi/edit" class="btn" target="_blank" rel="noopener">Baca Puisi</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-cipta-lagu/edit" class="btn" target="_blank" rel="noopener">Cipta Lagu</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-cipta-puisi/edit" class="btn" target="_blank" rel="noopener">Cipta Puisi</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-desain-poster/edit" class="btn" target="_blank" rel="noopener">Desain Poster</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-fotografi/edit" class="btn" target="_blank" rel="noopener">Fotografi</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-instrumen-solo-gitar/edit" class="btn" target="_blank" rel="noopener">Instrumen Solo Gitar</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-menyanyi-solo/edit" class="btn" target="_blank" rel="noopener">Menyanyi Solo</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-jurnalistik/edit" class="btn" target="_blank" rel="noopener">Jurnalistik</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-kriya/edit" class="btn" target="_blank" rel="noopener">Kriya</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-komik-digital/edit" class="btn" target="_blank" rel="noopener">Komik Digital</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-menulis-cerita-pendek/edit" class="btn" target="_blank" rel="noopener">Menulis Cerita Pendek</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-monolog/edit" class="btn" target="_blank" rel="noopener">Monolog</a>
+        <a href="https://docs.google.com/document/d/example-link-teknis-film-pendek/edit" class="btn" target="_blank" rel="noopener">Film Pendek</a>
+    </div>
+</section>
+
+    <!-- Section Pendaftaran Seleksi -->
+    <section id="pendaftaran">
+        <h2>Pendaftaran Seleksi</h2>
+        <p>Klik tombol di bawah untuk mendaftar berdasarkan kategori utama:</p>
+        <div class="button-grid">
+            <a href="https://forms.google.com/example-form-design-grafis" class="btn" target="_blank" rel="noopener">Seni</a>
+            <a href="https://forms.google.com/example-form-bahasa" class="btn" target="_blank" rel="noopener">Kerajinan</a>
+            <a href="https://forms.google.com/example-form-sastra" class="btn" target="_blank" rel="noopener">Bahasa</a>
+            <a href="https://forms.google.com/example-form-sastra" class="btn" target="_blank" rel="noopener">Design dan Visual</a>
+        </div>
+    </section>
+
+    <footer>&copy; 2025 PESTA 80. All rights reserved.</footer>
+
+    <script>
+        // JavaScript Inline untuk navigasi - Diperbaiki untuk aksesibilitas
+        function showPage(pageId) {
+            // Sembunyikan semua section
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Tampilkan section yang dipilih
+            const activeSection = document.getElementById(pageId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                // Fokus ke section untuk aksesibilitas
+                activeSection.focus();
+            }
+        }
+        
+        // Default: Tampilkan Home saat load
+        showPage('home');
+    </script>
+</body>
+</html>
